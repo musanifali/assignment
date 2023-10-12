@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi-Step Student Registration Form</title>
+    <!-- Include Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center">Multi-Step Student Registration Form</h1>
+      <!-- Navigation Buttons -->
+      <div class="text-center mb-4">
+        <button
+          type="button"
+          class="btn btn-primary switch-scenario"
+          data-scenario="scenario1"
+        >
+          Personal Information
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary switch-scenario"
+          data-scenario="scenario2"
+        >
+          Contact Information
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary switch-scenario"
+          data-scenario="scenario3"
+        >
+          Educational Background
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary switch-scenario"
+          data-scenario="scenario4"
+        >
+          Confirmation
+        </button>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="form-scenario" id="scenario1">
+            <h2 class="card-title">Step 1: Personal Information</h2>
+            <form action="#">
+              <!-- Form fields for Step 1: Personal Information -->
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstName"
+                  placeholder="Enter your first name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lastName"
+                  placeholder="Enter your last name"
+                />
+              </div>
+              <button type="button" class="btn btn-primary next">Next</button>
+            </form>
+          </div>
+
+          <div class="form-scenario" id="scenario2" style="display: none">
+            <h2 class="card-title">Step 2: Contact Information</h2>
+            <form action="#">
+              <!-- Form fields for Step 2: Contact Information -->
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="Enter your email"
+                />
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="phone"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+              <button type="button" class="btn btn-primary prev">
+                Previous
+              </button>
+              <button type="button" class="btn btn-primary next">Next</button>
+            </form>
+          </div>
+
+          <div class="form-scenario" id="scenario3" style="display: none">
+            <h2 class="card-title">Step 3: Educational Background</h2>
+            <form action="#">
+              <!-- Form fields for Step 3: Educational Background -->
+              <div class="form-group">
+                <label for="university">University</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="university"
+                  placeholder="Enter the university you attended"
+                />
+              </div>
+              <div class="form-group">
+                <label for="major">Major</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="major"
+                  placeholder="Enter your major"
+                />
+              </div>
+              <button type="button" class="btn btn-primary prev">
+                Previous
+              </button>
+              <button type="button" class="btn btn-primary next">Next</button>
+            </form>
+          </div>
+
+          <div class="form-scenario" id="scenario4" style="display: none">
+            <h2 class="card-title">Step 4: Confirmation</h2>
+            <form action="#">
+              <!-- Form fields for Step 4: Confirmation -->
+              <p>Please review your information before submission:</p>
+              <p>
+                <strong>Full Name:</strong> <span id="confirmationName"></span>
+              </p>
+              <p>
+                <strong>Email:</strong> <span id="confirmationEmail"></span>
+              </p>
+              <p>
+                <strong>Phone:</strong> <span id="confirmationPhone"></span>
+              </p>
+              <p>
+                <strong>University:</strong>
+                <span id="confirmationUniversity"></span>
+              </p>
+              <p>
+                <strong>Major:</strong> <span id="confirmationMajor"></span>
+              </p>
+              <button type="button" class="btn btn-primary prev">
+                Previous
+              </button>
+              <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        // Function to switch between scenarios
+        function switchScenario(scenarioId) {
+          $(".form-scenario").hide();
+          $("#" + scenarioId).show();
+        }
+
+        // Event handler for scenario navigation buttons
+        $(".switch-scenario").click(function () {
+          const targetScenario = $(this).data("scenario");
+          switchScenario(targetScenario);
+        });
+
+        // Event handler for "Next" buttons
+        $(".next").click(function () {
+          const currentForm = $(this).closest(".form-scenario");
+          const nextScenario = currentForm.next(".form-scenario");
+          if (nextScenario.length > 0) {
+            currentForm.hide();
+            nextScenario.show();
+          }
+        });
+
+        // Event handler for "Back" buttons
+
+        // Event handler for "Back" buttons
+        $(".prev").click(function () {
+          const currentForm = $(this).closest(".form-scenario");
+          const prevScenario = currentForm.prev(".form-scenario");
+          if (prevScenario.length > 0) {
+            currentForm.hide();
+            prevScenario.show();
+          }
+        });
+
+        // Event handler for form submission (Step 4: Confirmation)
+        $("form").submit(function (event) {
+          event.preventDefault(); // Prevent the form from submitting
+
+          // Retrieve values from previous steps
+          const name = $("#firstName").val() + " " + $("#lastName").val();
+          const email = $("#email").val();
+          const phone = $("#phone").val();
+          const university = $("#university").val();
+          const major = $("#major").val();
+
+          // Display the values in the confirmation step
+          $("#confirmationName").text(name);
+          $("#confirmationEmail").text(email);
+          $("#confirmationPhone").text(phone);
+          $("#confirmationUniversity").text(university);
+          $("#confirmationMajor").text(major);
+
+          // Show the confirmation step
+          switchScenario("scenario4");
+        });
+      });
+    </script>
+  </body>
+</html>
